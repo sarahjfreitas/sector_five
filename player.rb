@@ -3,7 +3,7 @@ require 'gosu'
 class Player
   ROTATION_SPEED = 3
   ACELERATION = 2
-  FRICTION = 1
+  FRICTION = 0.9
   RADIUS = 20
 
   def initialize(window)
@@ -36,8 +36,8 @@ class Player
   def move
     @x += @velocity_x
     @y += @velocity_y
-    @velocity_x * FRICTION
-    @velocity_y * FRICTION
+    @velocity_x *= FRICTION
+    @velocity_y *= FRICTION
 
     if hit_right_border?
       @velocity_x = 0
