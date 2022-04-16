@@ -3,7 +3,7 @@ require 'gosu'
 class Player
   ROTATION_SPEED = 3
   ACELERATION = 2
-  FRICTION = 0.9
+  FRICTION = 1
   RADIUS = 20
 
   def initialize(window)

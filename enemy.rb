@@ -10,7 +10,7 @@ class Enemy
   end
 
   def draw
-    image.draw(@x - RADIUS, @y - RADIUS,1)
+    image.draw_rot(@x,@y,1)
   end
 
   def move
