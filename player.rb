@@ -1,7 +1,10 @@
+require 'gosu'
+
 class Player
   ROTATION_SPEED = 3
   ACELERATION = 2
   FRICTION = 0.9
+  RADIUS = 20
 
   def initialize(window)
     @x = 200
@@ -10,6 +13,7 @@ class Player
     @image = Gosu::Image.new('images/ship.png')
     @velocity_x = 0
     @velocity_y = 0
+    @window = window
   end
 
   def draw
@@ -34,5 +38,37 @@ class Player
     @y += @velocity_y
     @velocity_x * FRICTION
     @velocity_y * FRICTION
+
+    if hit_right_border?
+      @velocity_x = 0
+      @x = @window.width - RADIUS
+    elsif hit_left_border?
+      @velocity_x  = 0
+      @x = RADIUS
+    elsif hit_bottom_border?
+      @velocity_y = 0
+      @y = @window.height - RADIUS
+    elsif hit_top?
+      @velocity_y = 0
+      @y = RADIUS
+    end
+  end
+
+  private
+
+  def hit_left_border?
+    @x < RADIUS
+  end
+
+  def hit_right_border?
+    @x > @window.width - RADIUS
+  end
+
+  def hit_bottom_border?
+    @y > @window.height - RADIUS
+  end
+
+  def hit_top?
+    @y < RADIUS
   end
 end
