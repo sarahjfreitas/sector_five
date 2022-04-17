@@ -2,7 +2,7 @@ require 'gosu'
 
 class Player
   ROTATION_SPEED = 3
-  ACELERATION = 2
+  ACELERATION = 4
   FRICTION = 0.9
   RADIUS = 20
 
@@ -39,17 +39,17 @@ class Player
     @velocity_x *= FRICTION
     @velocity_y *= FRICTION
 
-    if hit_right_border?
-      @velocity_x = 0
-      @x = @window.width - RADIUS
-    elsif hit_left_border?
-      @velocity_x  = 0
-      @x = RADIUS
+    if hit_right_border? or hit_left_border?
+      @velocity_x *= -1
+      @angle *= -1
+      @x = (@x - 2 * RADIUS).abs
     elsif hit_bottom_border?
-      @velocity_y = 0
+      @velocity_y *= -1
+      @angle -= 180
       @y = @window.height - RADIUS
     elsif hit_top?
-      @velocity_y = 0
+      @velocity_y *= -1
+      @angle += 180
       @y = RADIUS
     end
   end
