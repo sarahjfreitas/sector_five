@@ -1,5 +1,3 @@
-require 'gosu'
-
 class Enemy
   RADIUS = 20
   SPEED = 4

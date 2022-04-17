@@ -1,5 +1,3 @@
-require 'gosu'
-
 class Player
   ROTATION_SPEED = 3
   ACELERATION = 4

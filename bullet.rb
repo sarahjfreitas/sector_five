@@ -1,6 +1,3 @@
-require 'gosu'
-require_relative 'bullet'
-
 class Bullet
   RADIUS = 3
   SPEED = 5
