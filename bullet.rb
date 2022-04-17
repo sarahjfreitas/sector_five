@@ -23,6 +23,12 @@ class Bullet
     RADIUS
   end
 
+  def off_screen?
+    top_right_limit = RADIUS * -1
+    bottom_left_limit = @window.width + RADIUS
+    @x < top_right_limit || @x > bottom_left_limit || @y < top_right_limit || @y > bottom_left_limit
+  end
+
   private
 
   def image

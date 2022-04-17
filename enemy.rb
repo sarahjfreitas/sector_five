@@ -6,6 +6,7 @@ class Enemy
   def initialize(window)
     @x = rand(window.width - 2 * RADIUS) + RADIUS
     @y = 0
+    @window = window
   end
 
   def draw
@@ -18,6 +19,10 @@ class Enemy
 
   def radius
     RADIUS
+  end
+
+  def off_screen?
+    @y > @window.height + RADIUS
   end
 
   private
