@@ -29,7 +29,7 @@ class SectorFive < Gosu::Window
     @enemies.each {|enemy| enemy.move }
     @bullets.each {|bullet| bullet.move }
 
-    handle_colision
+    handle_colisions
 
     # clean up
     @bullets.delete_if { |bullet| bullet.off_screen? }
@@ -57,15 +57,12 @@ class SectorFive < Gosu::Window
     @enemies.push Enemy.new(self) if rand < ENEMY_FREQUENCY
   end
 
-  def handle_colision
-    @bullets.dup.each do |bullet|
-      @enemies.dup.each do |enemy|
-        distance = Gosu::distance(enemy.x, enemy.y, bullet.x, bullet.y)
-        if distance <= enemy.radius + bullet.radius # bullet hit enemy
-          @enemies.delete enemy
-          @bullets.delete bullet
-          @explosions.push Explosion.new(self, enemy.x, enemy.y)
-        end
+  def handle_colisions
+    @enemies.dup.each do |enemy|
+      if hit_bullet = enemy.got_hit_by(@bullets)
+        @enemies.delete enemy
+        @bullets.delete hit_bullet
+        @explosions.push Explosion.new(self, enemy.x, enemy.y)
       end
     end
   end

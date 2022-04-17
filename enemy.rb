@@ -25,6 +25,15 @@ class Enemy
     @y > @window.height + RADIUS
   end
 
+  def got_hit_by(bullets)
+    bullets.each do |bullet|
+      distance = Gosu::distance(@x, @y, bullet.x, bullet.y)
+      return bullet if distance <= RADIUS + bullet.radius
+    end
+
+    nil
+  end
+
   private
 
   def image
