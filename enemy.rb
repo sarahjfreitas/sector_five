@@ -25,10 +25,10 @@ class Enemy
     @y > @window.height + RADIUS
   end
 
-  def got_hit_by(bullets)
-    bullets.each do |bullet|
-      distance = Gosu::distance(@x, @y, bullet.x, bullet.y)
-      return bullet if distance <= RADIUS + bullet.radius
+  def got_hit_by(targets)
+    targets.each do |target|
+      distance = Gosu::distance(@x, @y, target.x, target.y)
+      return target if distance <= RADIUS + target.radius
     end
 
     nil

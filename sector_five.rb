@@ -59,9 +59,10 @@ class SectorFive < Gosu::Window
 
   def handle_colisions
     @enemies.dup.each do |enemy|
-      if hit_bullet = enemy.got_hit_by(@bullets)
+      if hit_bullet = enemy.got_hit_by(@bullets) || hit_explosion = enemy.got_hit_by(@explosions)
         @enemies.delete enemy
         @bullets.delete hit_bullet
+        @explosions.delete hit_explosion
         @explosions.push Explosion.new(self, enemy.x, enemy.y)
       end
     end

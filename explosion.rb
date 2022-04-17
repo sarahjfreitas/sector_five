@@ -1,5 +1,6 @@
 class Explosion
   RADIUS = 30
+  attr_reader :x, :y
 
   def initialize(window,x,y)
     @window = window
@@ -15,6 +16,10 @@ class Explosion
 
   def finished?
     @image_index >= images.count
+  end
+
+  def radius
+    RADIUS
   end
 
   private
