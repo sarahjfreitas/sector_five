@@ -3,6 +3,7 @@ require 'gosu'
 class Enemy
   RADIUS = 20
   SPEED = 4
+  attr_reader :x,:y
 
   def initialize(window)
     @x = rand(window.width - 2 * RADIUS) + RADIUS
@@ -15,6 +16,10 @@ class Enemy
 
   def move
     @y += SPEED
+  end
+
+  def radius
+    RADIUS
   end
 
   private

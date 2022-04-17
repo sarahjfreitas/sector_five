@@ -54,6 +54,10 @@ class Player
     end
   end
 
+  def fire
+    Bullet.new @window,@x,@y,@angle
+  end
+
   private
 
   def hit_left_border?
