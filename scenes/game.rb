@@ -10,10 +10,17 @@ module Scene
       @bullets = []
       @explosions = []
       @score = {enemies_appeared: 0, enemies_destroyed: 0}
+      @game_music = Gosu::Song.new('sounds/Cephalopod.ogg')
+      @game_music.play(true)
+      @explosion_sound = Gosu::Sample.new('sounds/explosion.ogg')
+      @shooting_sound = Gosu::Sample.new('sounds/shoot.ogg')
     end
 
     def button_down(id)
-      @bullets.push @player.fire if id == Gosu::KB_SPACE or id == Gosu::GP_BUTTON_7
+      if id == Gosu::KB_SPACE or id == Gosu::GP_BUTTON_7
+        @bullets.push @player.fire
+        @shooting_sound.play(0.3)
+      end
     end
 
     def update
@@ -58,6 +65,7 @@ module Scene
           @bullets.delete hit_bullet
           @explosions.delete hit_explosion
           @explosions.push Explosion.new(@window, enemy.x, enemy.y)
+          @explosion_sound.play
           @score[:enemies_destroyed] += 1
         end
         if enemy.got_hit_by(@player)

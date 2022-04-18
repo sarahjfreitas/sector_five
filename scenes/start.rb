@@ -2,6 +2,8 @@ module Scene
   class Start
     def initialize(window)
       @window = window
+      @start_music = Gosu::Song.new('sounds/Lost Frontier.ogg')
+      @start_music.play(true)
     end
 
     def button_down(id)

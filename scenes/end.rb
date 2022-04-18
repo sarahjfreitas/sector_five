@@ -14,10 +14,13 @@ module Scene
       when :hit_top
         message_hit_top
       end
+
+      @end_music = Gosu::Song.new('sounds/FromHere.ogg')
+      @end_music.play(true)
     end
 
     def button_down(id)
-      if id == Gosu::KB_ENTER
+      if id ==  Gosu::KB_ENTER || id == Gosu::KB_RETURN
         @window.change_scene(:start)
       elsif id == Gosu::KB_ESCAPE
         @window.close
