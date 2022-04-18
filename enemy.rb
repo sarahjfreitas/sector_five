@@ -26,9 +26,12 @@ class Enemy
   end
 
   def got_hit_by(targets)
-    targets.each do |target|
-      distance = Gosu::distance(@x, @y, target.x, target.y)
-      return target if distance <= RADIUS + target.radius
+    if targets.is_a? Array
+      targets.each do |target|
+        return target if target_collided?(target)
+      end
+    else
+      return targets if target_collided?(targets)
     end
 
     nil
@@ -38,5 +41,10 @@ class Enemy
 
   def image
     @_image ||= Gosu::Image.new('images/enemy.png')
+  end
+
+  def target_collided?(target)
+    distance = Gosu::distance(@x, @y, target.x, target.y)
+    distance <= RADIUS + target.radius
   end
 end

@@ -1,6 +1,7 @@
 module Scene
   class Game
     ENEMY_FREQUENCY = 0.05
+    MAX_ENEMIES = 100
 
     def initialize(window)
       @window = window
@@ -8,6 +9,7 @@ module Scene
       @enemies = []
       @bullets = []
       @explosions = []
+      @score = {enemies_appeared: 0, enemies_destroyed: 0}
     end
 
     def button_down(id)
@@ -29,6 +31,8 @@ module Scene
       @bullets.delete_if { |bullet| bullet.off_screen? }
       @explosions.delete_if { |explosion| explosion.finished? }
       @enemies.delete_if { |enemy| enemy.off_screen? }
+      @window.change_scene(:end,:count_reached,@score) if @score[:enemies_appeared] >= MAX_ENEMIES
+      @window.change_scene(:end,:hit_top,@score) if @player.hit_top?
     end
 
     def draw
@@ -41,7 +45,10 @@ module Scene
     private
 
     def create_enemy
-      @enemies.push Enemy.new(@window) if rand < ENEMY_FREQUENCY
+      if rand < ENEMY_FREQUENCY
+        @enemies.push Enemy.new(@window)
+        @score[:enemies_appeared] += 1
+      end
     end
 
     def handle_colisions
@@ -51,6 +58,10 @@ module Scene
           @bullets.delete hit_bullet
           @explosions.delete hit_explosion
           @explosions.push Explosion.new(@window, enemy.x, enemy.y)
+          @score[:enemies_destroyed] += 1
+        end
+        if enemy.got_hit_by(@player)
+          @window.change_scene(:end,:hit_by_enemy,@score)
         end
       end
     end

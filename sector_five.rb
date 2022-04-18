@@ -32,7 +32,7 @@ class SectorFive < Gosu::Window
     @scene.draw
   end
 
-  def change_scene(next_scene)
+  def change_scene(next_scene,mode=:none,score = {})
     @scene_key = next_scene
 
     case next_scene
@@ -41,7 +41,7 @@ class SectorFive < Gosu::Window
     when :game
       @scene = Scene::Game.new(self)
     when :end
-      @scene = Scene::End.new(self)
+      @scene = Scene::End.new(self,mode,score)
     end
   end
 end

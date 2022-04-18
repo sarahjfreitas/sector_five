@@ -1,11 +1,13 @@
 module Scene
   class End
-    def initialize(window)
+    def initialize(window,mode,score)
       @window = window
+      @mode = mode
+      @score = score
     end
 
     def button_down(id)
-      @window.change_scene(:game)
+      @window.change_scene(:start)
     end
 
     def update

@@ -3,6 +3,7 @@ class Player
   ACELERATION = 4
   FRICTION = 0.9
   RADIUS = 20
+  attr_reader :x, :y
 
   def initialize(window)
     @x = 200
@@ -45,15 +46,19 @@ class Player
       @velocity_y *= -1
       @angle -= 180
       @y = @window.height - RADIUS
-    elsif hit_top?
-      @velocity_y *= -1
-      @angle += 180
-      @y = RADIUS
     end
   end
 
   def fire
     Bullet.new @window,@x,@y,@angle
+  end
+
+  def radius
+    RADIUS
+  end
+
+  def hit_top?
+    @y < RADIUS
   end
 
   private
@@ -68,9 +73,5 @@ class Player
 
   def hit_bottom_border?
     @y > @window.height - RADIUS
-  end
-
-  def hit_top?
-    @y < RADIUS
   end
 end
